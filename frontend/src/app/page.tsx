@@ -2,8 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Canvas } from '@react-three/fiber';
-import { OrbitControls, Float } from '@react-three/drei';
+import dynamic from 'next/dynamic';
 import { BookOpen, Brain, Zap, ArrowRight, Users, Award, Clock } from 'lucide-react';
 import Link from 'next/link';
 
@@ -11,36 +10,20 @@ import { courseApi } from '@/lib/api';
 import type { Course } from '@/types';
 import { cn } from '@/lib/utils';
 
-function Scene() {
-  return (
-    <Canvas camera={{ position: [0, 0, 10], fov: 75 }}>
-      <OrbitControls enableZoom={false} enablePan={false} />
-      <ambientLight intensity={0.5} />
-      <directionalLight position={[10, 10, 5]} intensity={1} />
-      
-      <Float speed={1} rotationIntensity={1} floatIntensity={2}>
-        <mesh>
-          <torusGeometry args={[1, 0.3, 16, 32]} />
-          <meshNormalMaterial />
-        </mesh>
-      </Float>
-      
-      <Float speed={0.5} rotationIntensity={0.5} floatIntensity={1} position={[3, -1, 0]}>
-        <mesh>
-          <boxGeometry args={[1, 1, 1]} />
-          <meshStandardMaterial color="#0ea5e9" />
-        </mesh>
-      </Float>
-      
-      <Float speed={0.8} rotationIntensity={0.8} floatIntensity={1.5} position={[-3, 1, 0]}>
-        <mesh>
-          <sphereGeometry args={[0.5, 32, 32]} />
-          <meshStandardMaterial color="#d946ef" />
-        </mesh>
-      </Float>
-    </Canvas>
-  );
-}
+// Dynamic import to avoid SSR issues with Three.js
+const Scene3D = dynamic(() => import('@/components/Scene3D'), {
+  ssr: false,
+  loading: () => (
+    <div className="flex items-center justify-center h-full">
+      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600"></div>
+    </div>
+  ),
+});
+
+// Fallback hero illustration
+const HeroIllustration = dynamic(() => import('@/components/HeroIllustration'), {
+  ssr: false,
+});
 
 function CourseCard({ course }: { course: Course }) {
   return (
@@ -87,6 +70,7 @@ export default function HomePage() {
   const [courses, setCourses] = useState<Course[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [use3D, setUse3D] = useState(true);
 
   useEffect(() => {
     async function fetchCourses() {
@@ -173,7 +157,16 @@ export default function HomePage() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="h-96 lg:h-[500px]"
           >
-            <Scene />
+            {use3D ? (
+              <div
+                onError={() => setUse3D(false)}
+                className="h-full"
+              >
+                <Scene3D />
+              </div>
+            ) : (
+              <HeroIllustration />
+            )}
           </motion.div>
         </div>
       </section>
