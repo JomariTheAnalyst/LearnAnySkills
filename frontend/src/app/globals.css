@@ -1,0 +1,258 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap');
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 214 100% 47%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 306 82% 60%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 210 40% 96%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 158 64% 52%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 214 100% 47%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 214 100% 47%;
+    --primary-foreground: 222.2 84% 4.9%;
+    --secondary: 306 82% 60%;
+    --secondary-foreground: 222.2 84% 4.9%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 158 64% 52%;
+    --accent-foreground: 222.2 84% 4.9%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 214 100% 47%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer components {
+  /* Custom scrollbar */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-track {
+    @apply bg-neutral-100 rounded-full;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-neutral-300 rounded-full hover:bg-neutral-400;
+  }
+  
+  /* Gradient text */
+  .gradient-text {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  /* Glass morphism effect */
+  .glass {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+  
+  .glass-dark {
+    background: rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Interactive animations */
+  .interactive-hover {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .interactive-hover:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  }
+  
+  /* Code syntax highlighting */
+  .code-block {
+    @apply bg-neutral-900 rounded-lg p-4 overflow-x-auto custom-scrollbar;
+  }
+  
+  .code-block pre {
+    @apply m-0 text-sm;
+  }
+  
+  .code-block code {
+    @apply text-neutral-100 font-mono;
+  }
+  
+  /* Loading animations */
+  .loading-dots {
+    display: inline-block;
+  }
+  
+  .loading-dots::after {
+    content: '';
+    animation: ellipsis 1.5s infinite;
+  }
+  
+  @keyframes ellipsis {
+    0% { content: ''; }
+    25% { content: '.'; }
+    50% { content: '..'; }
+    75% { content: '...'; }
+    100% { content: ''; }
+  }
+  
+  /* Progress bar animations */
+  .progress-bar {
+    transition: width 0.5s ease-in-out;
+  }
+  
+  /* Card hover effects */
+  .course-card {
+    @apply bg-white rounded-xl shadow-sm border border-neutral-200 p-6 transition-all duration-300 hover:shadow-lg hover:-translate-y-1;
+  }
+  
+  .lesson-card {
+    @apply bg-white rounded-lg shadow-sm border border-neutral-200 p-4 transition-all duration-300 hover:shadow-md hover:border-primary-200;
+  }
+  
+  /* Button variants */
+  .btn-primary {
+    @apply bg-primary-600 hover:bg-primary-700 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200;
+  }
+  
+  .btn-secondary {
+    @apply bg-secondary-600 hover:bg-secondary-700 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200;
+  }
+  
+  .btn-outline {
+    @apply border border-primary-600 text-primary-600 hover:bg-primary-600 hover:text-white font-medium py-2 px-4 rounded-lg transition-all duration-200;
+  }
+  
+  /* Typography */
+  .prose-custom {
+    @apply prose prose-lg max-w-none;
+  }
+  
+  .prose-custom h1 {
+    @apply text-3xl font-bold text-neutral-900 mb-4;
+  }
+  
+  .prose-custom h2 {
+    @apply text-2xl font-semibold text-neutral-800 mb-3 mt-8;
+  }
+  
+  .prose-custom h3 {
+    @apply text-xl font-medium text-neutral-700 mb-2 mt-6;
+  }
+  
+  .prose-custom p {
+    @apply text-neutral-600 leading-relaxed mb-4;
+  }
+  
+  .prose-custom ul {
+    @apply list-disc list-inside space-y-2 mb-4;
+  }
+  
+  .prose-custom li {
+    @apply text-neutral-600;
+  }
+  
+  /* Floating elements */
+  .floating {
+    animation: float 6s ease-in-out infinite;
+  }
+  
+  .floating:nth-child(2) {
+    animation-delay: -2s;
+  }
+  
+  .floating:nth-child(3) {
+    animation-delay: -4s;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  .bg-grid {
+    background-image: 
+      linear-gradient(rgba(0, 0, 0, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
+    background-size: 20px 20px;
+  }
+  
+  .bg-gradient-mesh {
+    background: linear-gradient(45deg, #667eea 0%, #764ba2 100%);
+  }
+  
+  .text-gradient {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+}
+
+/* Print styles */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
