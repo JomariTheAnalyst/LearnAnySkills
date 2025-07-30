@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Canvas } from '@react-three/fiber';
-import { OrbitControls, Float, Text3D, Center } from '@react-three/drei';
+import { OrbitControls, Float } from '@react-three/drei';
 import { BookOpen, Brain, Zap, ArrowRight, Users, Award, Clock } from 'lucide-react';
 import Link from 'next/link';
 
@@ -19,22 +19,10 @@ function Scene() {
       <directionalLight position={[10, 10, 5]} intensity={1} />
       
       <Float speed={1} rotationIntensity={1} floatIntensity={2}>
-        <Center>
-          <Text3D 
-            font="/fonts/inter_bold.json"
-            size={1.5}
-            height={0.2}
-            curveSegments={12}
-            bevelEnabled
-            bevelThickness={0.02}
-            bevelSize={0.02}
-            bevelOffset={0}
-            bevelSegments={5}
-          >
-            Learn
-            <meshNormalMaterial />
-          </Text3D>
-        </Center>
+        <mesh>
+          <torusGeometry args={[1, 0.3, 16, 32]} />
+          <meshNormalMaterial />
+        </mesh>
       </Float>
       
       <Float speed={0.5} rotationIntensity={0.5} floatIntensity={1} position={[3, -1, 0]}>

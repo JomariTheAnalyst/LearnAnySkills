@@ -101,8 +101,8 @@ export default function CoursesPage() {
                       {course.title}
                     </h3>
                     
-                    <p className="text-neutral-600 mb-6 leading-relaxed line-clamp-3">
-                      {course.description}
+                    <p className="text-neutral-600 mb-6 leading-relaxed">
+                      {course.description.length > 150 ? course.description.substring(0, 150) + '...' : course.description}
                     </p>
                     
                     <div className="mt-auto space-y-3">
